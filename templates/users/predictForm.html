@@ -169,16 +169,23 @@ body {
     <div class="result-card">
         <p style="color:#94a3b8; font-weight:700; letter-spacing:1px; margin:0; font-size:12px;">🎯 AI SCORING RESULT</p>
         
+        {% if "error" in score|lower or "no words" in score|lower or "essay too short" in score|lower or "no valid" in score|lower %}
+        <div style="background-color: #7f1d1d; color: #fca5a5; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <strong>Notice:</strong> {{ score }}
+        </div>
+        {% else %}
         <!-- Extracted numbers logic from "7 (Raw...)" -->
         {% with score|slice:":1" as sVal %}
         <div class="score-circle">
             {{ sVal }}<span class="score-base">/10</span>
         </div>
-        {% endwith %}
-
         <div class="score-label">
-            {% if "10" in score or "9" in score or "8" in score %}Excellent{% elif "7" in score or "6" in score %}Good{% else %}Needs Improvement{% endif %}
+            {% if "10" == sVal or "9" == sVal or "8" == sVal %}Excellent
+            {% elif "7" == sVal or "6" == sVal %}Good
+            {% else %}Needs Improvement{% endif %}
         </div>
+        {% endwith %}
+        {% endif %}
         <br>
         <p style="color:#475569; font-size:12px;">Predicted by LSTM Neural Network</p>
     </div>
