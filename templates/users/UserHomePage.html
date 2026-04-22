@@ -1,63 +1,112 @@
-{% extends 'users/userbase.html'%}
-{%block contents%}
+{% extends 'users/userbase.html' %}
+{% load static %}
+{% block contents %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
- <section id="intro" style="background-color: #f2f2f2; min-height: 80vh; padding: 50px 0;">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8 mx-auto text-center" style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                <h3 style="color:#d51212; margin-bottom: 20px;">Welcome To User HomePage</h3>
-                <h4 style="color:#333; margin-bottom: 30px;">Automatic English Essay Scoring System</h4>
-                
-                <p style="font-size: 16px; color: #555; line-height: 1.6; text-align: justify;">
-                    This platform uses advanced Machine Learning algorithms to evaluate and score English essays automatically. 
-                    Whether you are a student practicing your writing skills or an educator looking for an efficient grading tool, 
-                    our system provides quick and consistent evaluations based on the AES standards.
-                </p>
-                
-                <hr style="margin: 30px 0;">
-                
-                <h5 style="color:#444; margin-bottom: 15px;">Features Available:</h5>
-                <ul style="text-align: left; color: #555; list-style-type: none; padding-left: 0;">
-                    <li style="margin-bottom: 10px;"><i class="fa fa-database" style="color: #ad6517; margin-right: 10px;"></i> <b>Dataset View:</b> Explore the dataset used for training our models.</li>
-                    <li style="margin-bottom: 10px;"><i class="fa fa-cogs" style="color: #ad6517; margin-right: 10px;"></i> <b>Training:</b> View the model training process and metrics.</li>
-                    <li style="margin-bottom: 10px;"><i class="fa fa-pen" style="color: #ad6517; margin-right: 10px;"></i> <b>Prediction:</b> Upload your essay text or an image of your essay to get an instant score!</li>
-                </ul>
-                
-                <br>
-                <a href="{% url 'prediction' %}" class="btn" style="background-color: #d51212; color: white; padding: 10px 30px; border-radius: 50px;">Score My Essay Now</a>
-            </div>
-        </div>
+body {
+    background-color: #0b0f19 !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #f8fafc;
+}
+
+.home-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.welcome-header {
+    background-color: #111827;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    border: 1px solid #1f2937;
+    margin-bottom: 30px;
+}
+
+.welcome-header h2 {
+    color: #f8fafc;
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 32px;
+}
+
+.welcome-header p {
+    color: #94a3b8;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.grid-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.nav-card {
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-card:hover {
+    background-color: #1e293b;
+    transform: translateY(-5px);
+    text-decoration: none;
+    border-color: #3b82f6;
+}
+
+.icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.nav-card h4 {
+    color: #38bdf8;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.nav-card p {
+    color: #94a3b8;
+    font-size: 14px;
+    margin: 0;
+}
+</style>
+
+<div class="home-container">
+    <div class="welcome-header">
+        <h2>Welcome back, {{ request.session.loggeduser|default:'User' }}!</h2>
+        <p>Your Automatic English Essay Scoring System is ready.<br>Use machine learning to evaluate your writing instantly with our deep learning LSTM models.</p>
     </div>
-  </section>
 
-  <!-- <div class="col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
-    <div class="media service-box">
-        <div class="pull-left">
-            <i class="fa fa-database"></i> -->
-        <!-- </div>
-        <div class="media-body">
-            <h4 class="media-heading">Model Fitting</h4>
-            <pre>
-                    <code class="python">
-vectorization = TfidfVectorizer()
-xv_train = vectorization.fit_transform(x_train)
-xv_test = vectorization.transform(x_test)
-svm_model = SVC(kernel='linear')
-#Fitting training set to the model
-svm_model.fit(xv_train,y_train)
-#Predicting the test set results based on the model
-svm_y_pred = svm_model.predict(xv_test)
-#Calculate the accuracy score of this model
-score = accuracy_score(y_test,svm_y_pred)
-                    </code>
-                </pre>
-        </div>
+    <div class="grid-nav">
+        <a href="{% url 'prediction' %}" class="nav-card">
+            <div class="icon">✍️</div>
+            <h4>Evaluate Essay</h4>
+            <p>Type or upload an image to get instant AI scoring</p>
+        </a>
+
+        <a href="{% url 'DatasetView' %}" class="nav-card">
+            <div class="icon">📁</div>
+            <h4>Training Dataset</h4>
+            <p>View the repository of essays used to train our AI</p>
+        </a>
+
+        <a href="{% url 'training' %}" class="nav-card">
+            <div class="icon">📊</div>
+            <h4>Model Metrics</h4>
+            <p>Check the LSTM evaluation and performance metrics</p>
+        </a>
     </div>
-</div><!--/.col-md-4-->
-
-<!-- </div>
-</div>/.row --> -->
-
-
-
-{%endblock%}
+</div>
+{% endblock %}

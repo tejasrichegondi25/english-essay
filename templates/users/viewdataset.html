@@ -1,25 +1,73 @@
-{%extends 'users/userbase.html'%}
-{%block contents%}
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-<script type="text/javascript">(document).ready(function(){('table').DataTable({
-    "pageLength": 50
-});});</script>
+{% extends 'users/userbase.html' %}
+{% block contents %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
 
-<main style="background-color: white; padding: 50px 0; min-height: 80vh;">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title wow fadeInDown" style="color: #333;"> Dataset view :</h2>
-            <p class="wow fadeInDown"></p>
-        </div>
+body {
+    background-color: #0b0f19 !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #f8fafc;
+}
 
-        <div class="row" style="margin:10px ;">
-            <div class="col-12" style="overflow-x: auto;">
-                <pre style="background: white; color: #333;">{{data|safe}}</pre>
-            </div>
-        </div>
+.dataset-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.dataset-header {
+    background-color: #111827;
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid #1f2937;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dataset-header h2 {
+    color: #38bdf8;
+    margin: 0;
+    font-weight: 700;
+}
+
+.data-panel {
+    background-color: #0f172a;
+    border-radius: 12px;
+    border: 1px solid #1e293b;
+    padding: 20px;
+    overflow-x: auto;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.data-panel pre {
+    color: #a5b4fc;
+    font-family: 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.back-link {
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+.back-link:hover { color: #f8fafc; }
+</style>
+
+<div class="dataset-container">
+    <div class="dataset-header">
+        <h2>📁 Training Dataset</h2>
+        <a href="{% url 'UserHome' %}" class="back-link">&larr; Back to Dashboard</a>
     </div>
-</main>
 
-{%endblock%}
+    <div class="data-panel">
+        <pre>{{ data|safe }}</pre>
+    </div>
+</div>
+{% endblock %}

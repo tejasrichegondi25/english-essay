@@ -1,40 +1,121 @@
-{%extends 'users/userbase.html'%}
-{%block contents%}
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-<script type="text/javascript">(document).ready(function(){('table').DataTable({
-    "pageLength": 50
-});});</script>
-        <div class="section-header">
-            <h2 class="section-title wow fadeInDown">Machine Learning Results</h2>
-            <p class="wow fadeInDown"></p>
+{% extends 'users/userbase.html' %}
+{% block contents %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    background-color: #0b0f19 !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #f8fafc;
+}
+
+.metrics-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.metrics-header {
+    background-color: #111827;
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid #1f2937;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.metrics-header h2 {
+    color: #f43f5e;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    font-size: 28px;
+}
+
+.metrics-header p {
+    color: #94a3b8;
+    margin: 0;
+    font-size: 14px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.metric-card {
+    background-color: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.metric-card.green { border-top: 4px solid #10b981; }
+.metric-card.blue { border-top: 4px solid #3b82f6; }
+.metric-card.purple { border-top: 4px solid #8b5cf6; }
+
+.metric-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 5px;
+}
+
+.metric-label {
+    color: #94a3b8;
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.back-btn {
+    display: inline-block;
+    margin-top: 40px;
+    padding: 12px 25px;
+    background-color: #1e293b;
+    color: #f8fafc;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.back-btn:hover {
+    background-color: #334155;
+    color: white;
+    text-decoration: none;
+}
+</style>
+
+<div class="metrics-container">
+    <div class="metrics-header">
+        <h2>🧠 LSTM Model Performance</h2>
+        <p>Training evaluation metrics on the AES dataset</p>
+    </div>
+
+    <div class="cards-grid">
+        <div class="metric-card green">
+            <div class="metric-value">{{ MAE }}</div>
+            <div class="metric-label">Mean Absolute Error</div>
         </div>
 
-        <div class="row" style="margin:10px ;">
-            
-            <!-- <pre>{{data|safe}}</pre> -->
-        <table border="1">
-            <tr>
-                <th>MAE</th>
-                <th>MSE</th>
-                <th>RMSE</th>
-            </tr>
-            <tr>
-                <td>{{ MAE }}</td>
-                <td>{{ MSE }}</td>
-                <td>{{ RMSE }}</td>
-            </tr>
-        </table>
-        
-        <!-- <h2>{{ MAE }}</h2><br>
-            <h2>{{ MSE }}</h2><br>
-            <h2>{{ RMSE }}</h2> -->
-
-
-
+        <div class="metric-card blue">
+            <div class="metric-value">{{ MSE }}</div>
+            <div class="metric-label">Mean Squared Error</div>
         </div>
 
+        <div class="metric-card purple">
+            <div class="metric-value">{{ RMSE }}</div>
+            <div class="metric-label">Root Mean Sq. Error</div>
+        </div>
+    </div>
 
-
-{%endblock%}
+    <div style="text-align: center;">
+        <a href="{% url 'UserHome' %}" class="back-btn">&larr; Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}
