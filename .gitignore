@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.pyc
+db.sqlite3
+.env
+tesseract-ocr-w64-setup.exe
+tesseract_installer.exe

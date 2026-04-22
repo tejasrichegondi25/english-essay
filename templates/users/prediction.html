@@ -1,0 +1,82 @@
+{% extends 'users/userbase.html'%}
+{%block contents%}
+
+
+  <!DOCTYPE html>
+  <html>
+  <style>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
+  .formDiv {
+    margin: 0 200px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  </style>
+  <body>
+  
+  
+  <div class="formDiv">
+    <h2 align="center" style="color:rgb(50, 19, 190);font-weight:bold;">ThePricePredictionOfSneakersBasedOnMachineLearning: {{y_pred}}</h2>
+
+    <form action="" method="POST">
+      {% csrf_token %}
+      <label>Order_date</label>
+      <input type="text" id="fname" name="Order_date" required>
+  
+      <label>Brand</label>
+      <input type="text" id="lname" name="Brand" required>
+
+      <label>Sneaker_Name</label>
+      <input type="text" id="lname" name="Sneaker_Name" required>
+
+      <label >Retail_Price</label>
+      <input type="text" id="lname" name="Retail_Price" required >
+
+      <label >Release_Date</label>
+      <input type="text" id="lname" name="Release_Date" required >
+
+      <label >Shoe_Size</label>
+      <input type="text" id="lname" name="Shoe_Size" required >
+
+      <label >Buyer</label>
+      <input type="text" id="lname" name="Buyer" required >
+  
+    
+      <input type="submit" value="Submit">
+    </form>
+    
+  </div>
+  
+  </body>
+  </html>
+  
+  
+  
+
+
+{%endblock%}

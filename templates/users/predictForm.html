@@ -1,0 +1,78 @@
+{% extends 'users/userbase.html' %}
+{% block contents %}
+{% load static %}
+
+<div style="padding: 50px 0;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center"
+                style="background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.5);">
+                <h2 align="center" style="color: #47b2e4; margin-bottom: 30px; font-weight: bold;">AES Predict Form</h2>
+
+                <center>
+
+                    {% if score %}
+                    <h4 style="color:#333;">
+                        Result is <font color="#d51212">{{ score }}</font>
+                    </h4>
+                    {% endif %}
+
+                    {% if extracted_text %}
+                    <h4 style="margin-top: 20px; color:#333;">Extracted Text from Image:</h4>
+                    <div
+                        style="border: 1px solid #ccc; padding: 15px; margin: 10px auto; width: 100%; text-align: left; background-color: #f9f9f9; border-radius: 5px; color: #333;">
+                        {{ extracted_text|linebreaks }}
+                    </div>
+                    {% if word_stats %}
+                    <p style="color: #555;">
+                        <b>Word Recognition Stats:</b> {{ word_stats.recognized }} / {{ word_stats.total }} words found in model.<br>
+                        <b>Raw Model Output (Score):</b> {{ word_stats.raw_score }}<br>
+                        <b>Samples Found:</b> {{ word_stats.first_few_found }}...
+                    </p>
+                    {% endif %}
+                    {% endif %}
+
+                    <form action="{% url 'prediction' %}" method="post" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        <table style="margin: 0 auto; width: 100%; max-width: 500px;">
+                            <tr>
+                                <td
+                                    style="padding: 10px; text-align: right; width: 40%; font-weight: bold; color: #333;">
+                                    Enter Essay (Text):</td>
+                                <td style="padding: 10px; text-align: left;">
+                                    <textarea name="final_text" rows="8"
+                                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #fff; color: #333;"></textarea>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 10px; text-align: right; font-weight: bold; color: #333;">OR
+                                    Upload Essay Image:</td>
+                                <td style="padding: 10px; text-align: left;">
+                                    <input type="file" name="essay_image" accept="image/*"
+                                        style="padding: 5px 0; color:#333;">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td></td>
+                                <td style="padding: 20px 10px; text-align: left;">
+                                    <button type="submit"
+                                        style="background-color: #47b2e4; color: #121212; padding: 10px 30px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold;">
+                                        Generate Score
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+
+                    </form>
+
+                </center>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

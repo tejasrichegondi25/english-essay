@@ -1,0 +1,36 @@
+{%extends 'users/userbase.html'%}
+{%load static%}
+{%block contents%}
+
+<main style="background-color: white; padding: 50px 0; min-height: 80vh;">
+    <section class="about d-lg-flex justify-content-center align-items-center" id="about">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-7 col-md-12 col-12 d-flex align-items-center">
+                    
+                    <table style="color: #333; font-size: 18px; font-weight: bold;">
+                        <tr>
+                            <td style="padding: 10px;">Mean Absolute Error </td>
+                            <td style="padding: 10px;">: {{mean_absolute_error}}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Loss</td>
+                            <td style="padding: 10px;">: {{loss}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="col-lg-5 col-md-12 col-12">
+                    <div class="about-image svg">
+                        <img src="{%static 'images/undraw/undraw_software_engineer_lvl5.svg'%}" class="img-fluid" alt="svg image">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+
+{%endblock%}

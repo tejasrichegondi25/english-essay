@@ -1,0 +1,63 @@
+{% extends 'users/userbase.html'%}
+{%block contents%}
+
+ <section id="intro" style="background-color: #f2f2f2; min-height: 80vh; padding: 50px 0;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center" style="background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color:#d51212; margin-bottom: 20px;">Welcome To User HomePage</h3>
+                <h4 style="color:#333; margin-bottom: 30px;">Automatic English Essay Scoring System</h4>
+                
+                <p style="font-size: 16px; color: #555; line-height: 1.6; text-align: justify;">
+                    This platform uses advanced Machine Learning algorithms to evaluate and score English essays automatically. 
+                    Whether you are a student practicing your writing skills or an educator looking for an efficient grading tool, 
+                    our system provides quick and consistent evaluations based on the AES standards.
+                </p>
+                
+                <hr style="margin: 30px 0;">
+                
+                <h5 style="color:#444; margin-bottom: 15px;">Features Available:</h5>
+                <ul style="text-align: left; color: #555; list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 10px;"><i class="fa fa-database" style="color: #ad6517; margin-right: 10px;"></i> <b>Dataset View:</b> Explore the dataset used for training our models.</li>
+                    <li style="margin-bottom: 10px;"><i class="fa fa-cogs" style="color: #ad6517; margin-right: 10px;"></i> <b>Training:</b> View the model training process and metrics.</li>
+                    <li style="margin-bottom: 10px;"><i class="fa fa-pen" style="color: #ad6517; margin-right: 10px;"></i> <b>Prediction:</b> Upload your essay text or an image of your essay to get an instant score!</li>
+                </ul>
+                
+                <br>
+                <a href="{% url 'prediction' %}" class="btn" style="background-color: #d51212; color: white; padding: 10px 30px; border-radius: 50px;">Score My Essay Now</a>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <!-- <div class="col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
+    <div class="media service-box">
+        <div class="pull-left">
+            <i class="fa fa-database"></i> -->
+        <!-- </div>
+        <div class="media-body">
+            <h4 class="media-heading">Model Fitting</h4>
+            <pre>
+                    <code class="python">
+vectorization = TfidfVectorizer()
+xv_train = vectorization.fit_transform(x_train)
+xv_test = vectorization.transform(x_test)
+svm_model = SVC(kernel='linear')
+#Fitting training set to the model
+svm_model.fit(xv_train,y_train)
+#Predicting the test set results based on the model
+svm_y_pred = svm_model.predict(xv_test)
+#Calculate the accuracy score of this model
+score = accuracy_score(y_test,svm_y_pred)
+                    </code>
+                </pre>
+        </div>
+    </div>
+</div><!--/.col-md-4-->
+
+<!-- </div>
+</div>/.row --> -->
+
+
+
+{%endblock%}

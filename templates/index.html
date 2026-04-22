@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block headerclass %}{% endblock %}
+{% block contents %}
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center" style="min-height: 80vh;">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+          <h1>Automated English Essay Scoring</h1>
+          <h2>Enhance your writing skills with AI-powered instant feedback, accurate scoring, and comprehensive analysis in seconds.</h2>
+          <div class="d-flex justify-content-center justify-content-lg-start mt-4">
+            <a href="{% url 'UserRegister' %}" class="btn-get-started scrollto">Get Started</a>
+            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video d-flex align-items-center" style="margin-left:20px; color:#fff"><i class="bi bi-play-circle" style="font-size:32px; margin-right:8px; color:#fff;"></i><span>Watch Demo</span></a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="{% static 'assets/img/hero-img.png' %}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Features Section ======= -->
+    <section id="clients" class="clients section-bg">
+      <div class="container">
+
+        <div class="row" data-aos="zoom-in">
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">AI Powered</h5>
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">Instant Feedback</h5>
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">Accurate Scoring</h5>
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">Grammar Check</h5>
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">Deep Learning</h5>
+          </div>
+
+          <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">NLP Models</h5>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Cliens Section -->
+    
+    <!-- ======= About Us Section ======= -->
+    <section id="about" class="about">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>About The Project</h2>
+        </div>
+
+        <div class="row content">
+          <div class="col-lg-6">
+            <p>
+              Our Automated English Essay Scoring system utilizes advanced Natural Language Processing and Deep Learning to evaluate essays accurately.
+            </p>
+            <ul>
+              <li><i class="ri-check-double-line"></i> Rapid evaluation of essay structure and vocabulary.</li>
+              <li><i class="ri-check-double-line"></i> Deep grammatical and syntax analysis.</li>
+              <li><i class="ri-check-double-line"></i> Provides constructive feedback comparable to human graders.</li>
+            </ul>
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0">
+            <p>
+              Perfect for educators, students, and language enthusiasts looking to save time on manual grading while receiving consistent and unbiased essay scores. Our system leverages state-of-the-art models to analyze semantic meaning, coherence, and grammar precision.
+            </p>
+            <a href="{% url 'UserLogin' %}" class="btn-learn-more">Try it Now</a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Us Section -->
+
+  </main><!-- End #main -->
+
+{% endblock %}
