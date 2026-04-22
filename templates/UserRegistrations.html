@@ -131,19 +131,19 @@ body {
             {% csrf_token %}
             
             <label class="input-label">FULL NAME</label>
-            <input type="text" name="name" class="custom-input" placeholder="Enter full name" required>
+            <input type="text" name="name" class="custom-input" placeholder="Enter full name" pattern="[a-zA-Z]+" title="Only alphabets allowed" required>
 
             <label class="input-label">EMAIL ADDRESS</label>
             <input type="email" name="email" class="custom-input" placeholder="Enter email address" required>
 
             <label class="input-label">MOBILE NUMBER</label>
-            <input type="text" name="mobile" class="custom-input" placeholder="Enter mobile number" required>
+            <input type="text" name="mobile" class="custom-input" placeholder="Enter mobile number" pattern="[56789][0-9]{9}" title="Valid 10 digit Indian mobile number starting with 5-9" required>
 
             <label class="input-label">LOGIN ID</label>
-            <input type="text" name="loginid" class="custom-input" placeholder="Choose a login ID" required>
+            <input type="text" name="loginid" class="custom-input" placeholder="Choose a login ID" pattern="[a-zA-Z]+" title="Only alphabets allowed" required>
 
             <label class="input-label">PASSWORD</label>
-            <input type="password" name="password" class="custom-input" placeholder="Create password" required>
+            <input type="password" name="password" class="custom-input" placeholder="Create password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
 
             <label class="input-label">LOCALITY</label>
             <input type="text" name="locality" class="custom-input" placeholder="Your locality" required>
@@ -154,13 +154,15 @@ body {
             <div class="row-group">
                 <div>
                     <label class="input-label">CITY</label>
-                    <input type="text" name="city" class="custom-input" placeholder="City" required>
+                    <input type="text" name="city" class="custom-input" placeholder="City" pattern="[A-Za-z ]+" title="Enter Characters Only" required>
                 </div>
                 <div>
                     <label class="input-label">STATE</label>
-                    <input type="text" name="state" class="custom-input" placeholder="State" required>
+                    <input type="text" name="state" class="custom-input" placeholder="State" pattern="[A-Za-z ]+" title="Enter Characters Only" required>
                 </div>
             </div>
+
+            <input type="hidden" name="status" value="waiting">
 
             <button type="submit" class="primary-btn">REGISTER</button>
 
