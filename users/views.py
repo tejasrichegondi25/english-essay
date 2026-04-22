@@ -95,7 +95,9 @@ from sklearn.model_selection import train_test_split
 # =========================
 def DatasetView(request):
 
-    df = pd.read_csv("media/training_set_rel3.tsv",
+    import os
+    from django.conf import settings
+    df = pd.read_csv(os.path.join(settings.BASE_DIR, "media", "training_set_rel3.tsv"),
                      sep='\t',
                      encoding='ISO-8859-1')
 
@@ -107,7 +109,7 @@ def DatasetView(request):
         'rater2_domain1'
     ], inplace=True)
 
-    temp = pd.read_csv("media/Processed_data.csv")
+    temp = pd.read_csv(os.path.join(settings.BASE_DIR, "media", "Processed_data.csv"))
     temp.drop(columns=["Unnamed: 0"], inplace=True)
 
     return render(request,
@@ -132,10 +134,12 @@ def training(request):
     from tensorflow.keras.models import Sequential
     from tensorflow.keras.layers import LSTM, Dense, Dropout
 
+    import os
+    from django.conf import settings
     # =========================
     # Load Dataset
     # =========================
-    df = pd.read_csv("media/training_set_rel3.tsv",
+    df = pd.read_csv(os.path.join(settings.BASE_DIR, "media", "training_set_rel3.tsv"),
                      sep='\t',
                      encoding='ISO-8859-1')
 
@@ -147,7 +151,7 @@ def training(request):
         'rater2_domain1'
     ], inplace=True)
 
-    temp = pd.read_csv("media/Processed_data.csv")
+    temp = pd.read_csv(os.path.join(settings.BASE_DIR, "media", "Processed_data.csv"))
     temp.drop(columns=["Unnamed: 0"], inplace=True)
 
     df['domain1_score'] = temp['final_score']
@@ -392,6 +396,10 @@ def prediction(request):
             try:
                 img = Image.open(image_file)
                 
+                # REZISE TO PREVENT GUNICORN/TESSERACT OOM KILLER (500 Error) ON RENDER FREE TIER
+                max_size = (1500, 1500)
+                img.thumbnail(max_size, Image.Resampling.LANCZOS)
+                
                 # Image Preprocessing for better OCR
                 img = img.convert('L') # Grayscale
                 img = ImageOps.autocontrast(img) # Improve contrast
@@ -412,16 +420,28 @@ def prediction(request):
         # =========================
         # Validate text
         # =========================
-        if not final_text or len(final_text.strip()) <= 20:
+        if final_text is None:
+            final_text = ""
+        
+        if len(final_text.strip()) <= 20:
             return render(
                 request,
                 "users/predictForm.html",
                 {"score": "Essay too short or empty."}
             )
 
-        try:
+        total_words = 0
+        count = 0
+        found_words = []
+        raw_score = 0.0
 
-            stop_words = set(stopwords.words("english"))
+        try:
+            try:
+                stop_words = set(stopwords.words("english"))
+            except:
+                import nltk
+                nltk.download('stopwords')
+                stop_words = set(stopwords.words("english"))
 
             text = re.sub("[^A-Za-z]", " ", final_text)
             words = text.lower().split()
@@ -429,9 +449,7 @@ def prediction(request):
 
             total_words = len(words)
             vec = np.zeros((300,), dtype="float32")
-            count = 0
-            found_words = []
-
+            
             w2v, lstm = get_prediction_models()
             for w in words:
                 if w in w2v.key_to_index:
