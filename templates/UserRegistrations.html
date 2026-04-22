@@ -1,101 +1,181 @@
-{%extends 'base.html'%}
-{%load static%}
-{%block contents%}
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-<main id="main" style="margin-top: 80px;">
-  <section class="bg-light">
-        <div class="container py-5">
-            <div class="row text-center py-3">
-                <div class="col-lg-6 m-auto">
-                    <p>
-<!--  <h1 class="h3" align="center" style="font-weight:bold;">User Register Form</h1>-->
-                    </p>
+body {
+    background-color: #0f172a !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #f8fafc;
+}
+
+.reg-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    min-height: 100vh;
+}
+
+.reg-card {
+    background-color: #1e293b;
+    border-radius: 16px;
+    padding: 40px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    border: 1px solid #334155;
+    margin-top: 30px;
+}
+
+.reg-title {
+    text-align: center;
+    color: #38bdf8;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.reg-subtitle {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.input-label {
+    color: #f8fafc;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.custom-input {
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    padding: 15px;
+    width: 100%;
+    color: #f8fafc;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.custom-input::placeholder {
+    color: #64748b;
+}
+
+.custom-input:focus {
+    outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+.row-group {
+    display: flex;
+    gap: 20px;
+}
+.row-group > div {
+    flex: 1;
+}
+
+.primary-btn {
+    background-color: #0ea5e9;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 10px;
+}
+
+.primary-btn:hover {
+    background-color: #0284c7;
+}
+
+.msg-error {
+    color: #ef4444;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: 500;
+}
+.footer-link {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+.footer-link a {
+    color: #38bdf8;
+    text-decoration: none;
+}
+</style>
+
+<div class="reg-container">
+    <div class="reg-card">
+        <h1 class="reg-title">Create Account</h1>
+        <p class="reg-subtitle">Join AI Essay Grader</p>
+
+        <form action="{% url 'UserRegisterActions' %}" method="POST">
+            {% csrf_token %}
+            
+            <label class="input-label">FULL NAME</label>
+            <input type="text" name="name" class="custom-input" placeholder="John Doe" required>
+
+            <label class="input-label">EMAIL ADDRESS</label>
+            <input type="email" name="email" class="custom-input" placeholder="john@example.com" required>
+
+            <label class="input-label">MOBILE NUMBER</label>
+            <input type="text" name="mobile" class="custom-input" placeholder="Enter mobile number" required>
+
+            <label class="input-label">LOGIN ID</label>
+            <input type="text" name="loginid" class="custom-input" placeholder="Choose a login ID" required>
+
+            <label class="input-label">PASSWORD</label>
+            <input type="password" name="password" class="custom-input" placeholder="Create password" required>
+
+            <label class="input-label">LOCALITY</label>
+            <input type="text" name="locality" class="custom-input" placeholder="Your locality" required>
+
+            <label class="input-label">ADDRESS</label>
+            <input type="text" name="address" class="custom-input" placeholder="Your full address" required>
+
+            <div class="row-group">
+                <div>
+                    <label class="input-label">CITY</label>
+                    <input type="text" name="city" class="custom-input" placeholder="City" required>
+                </div>
+                <div>
+                    <label class="input-label">STATE</label>
+                    <input type="text" name="state" class="custom-input" placeholder="State" required>
                 </div>
             </div>
-            <div class="row">
-<div class="col-12 col-md-4 mb-4">
-</div>
-                <div class="col-12 col-md-4 mb-4" align="center">
-                    <div class="card h-100">
 
-                         <form action="{%url 'UserRegisterActions'%}" method="POST"  style="width:100%">
-                              <h1 class="h3" align="center" style="font-weight:bold; color:brown;">User Register Form</h1>
+            <button type="submit" class="primary-btn">REGISTER</button>
 
-                    {% csrf_token %}
-  <table>
-                        <tr><td></td>
-                            <td>User Name</td>
-                            <td>{{form.name}}</td>
-                        </tr>
-                        <tr><td></td>
-                            <td>Login ID</td>
-                            <td>{{form.loginid}}</td>
-                        </tr>
-                        <tr><td></td>
-
-                            
-                            <td>Password</td>
-                            <td>{{form.password}}</td>
-                        </tr>
-                        <tr><td></td>
-                            <td>Mobile</td>
-                            <td>{{form.mobile}}</td>
-                        </tr>
-                        <tr><td></td>
-                            <td>email</td>
-                            <td>{{form.email}}</td>
-                        </tr>
-                        <tr><td></td>
-                            <td>Locality</td>
-                            <td>{{form.locality}}</td>
-                        </tr>
-                        <tr><td></td>
-                            <td>Address</td>
-                            <td>{{form.address}}</td>
-                        </tr>
-                        <tr><td></td>
-                            <td>City</td>
-                            <td>{{form.city}}</td>
-                        </tr>
-                        <tr><td></td>
-                            <td>State</td>
-                            <td>{{form.state}}</td>
-                        </tr>
-                        <tr><td></td>
-                            <td></td>
-                            <td>{{form.status}}</td>
-                        </tr>
- <tr><td></td>
-                            <td></td><br><br>
-     <td> <button class="btn btn-block btn-primary text-white py-2 px-5" 
-                                        type="submit"> 
-                                    Register
-                                </button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-group mt-3">
-                                <span  >&nbsp;</span>
-                            </div>
-                            </td>
-                        </tr>
-
-                        {% if messages %}
-                        {% for message in messages %}
-                        <font color='red'> {{ message }}</font>
-                        {% endfor %}
-                        {% endif %}
-
-                    </table>
-
-                </form>
-                         </div>
-                </div>
-                <div class="col-12 col-md-4 mb-4">
-
-                </div>
+            {% if messages %}
+            <div class="msg-error">
+                {% for message in messages %}
+                <span>{{ message }}</span>
+                {% endfor %}
             </div>
+            {% endif %}
+        </form>
+
+        <div class="footer-link">
+            Already have an account? <a href="{% url 'UserLogin' %}">Login</a>
         </div>
-    </section>
-</main>
-{%endblock%}
+    </div>
+</div>
+{% endblock %}

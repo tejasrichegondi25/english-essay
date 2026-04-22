@@ -1,78 +1,211 @@
 {% extends 'users/userbase.html' %}
-{% block contents %}
 {% load static %}
+{% block contents %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-<div style="padding: 50px 0;">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-8 mx-auto text-center"
-                style="background: #ffffff; padding: 40px; border-radius: 10px; box-shadow: 0 8px 30px rgba(0,0,0,0.5);">
-                <h2 align="center" style="color: #47b2e4; margin-bottom: 30px; font-weight: bold;">AES Predict Form</h2>
+body {
+    background-color: #0b0f19 !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #f8fafc;
+}
 
-                <center>
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 30px;
+}
 
-                    {% if score %}
-                    <h4 style="color:#333;">
-                        Result is <font color="#d51212">{{ score }}</font>
-                    </h4>
-                    {% endif %}
+.header-banner {
+    background-color: #111827;
+    border-radius: 12px;
+    padding: 20px 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #1f2937;
+}
 
-                    {% if extracted_text %}
-                    <h4 style="margin-top: 20px; color:#333;">Extracted Text from Image:</h4>
-                    <div
-                        style="border: 1px solid #ccc; padding: 15px; margin: 10px auto; width: 100%; text-align: left; background-color: #f9f9f9; border-radius: 5px; color: #333;">
-                        {{ extracted_text|linebreaks }}
-                    </div>
-                    {% if word_stats %}
-                    <p style="color: #555;">
-                        <b>Word Recognition Stats:</b> {{ word_stats.recognized }} / {{ word_stats.total }} words found in model.<br>
-                        <b>Raw Model Output (Score):</b> {{ word_stats.raw_score }}<br>
-                        <b>Samples Found:</b> {{ word_stats.first_few_found }}...
-                    </p>
-                    {% endif %}
-                    {% endif %}
+.welcome-text { margin: 0; font-size: 14px; color: #9ca3af; }
+.user-name { margin: 0; font-size: 24px; font-weight: 700; color: #f8fafc; }
 
-                    <form action="{% url 'prediction' %}" method="post" enctype="multipart/form-data">
+.badges { display: flex; gap: 10px; margin-top: 15px; }
+.badge { 
+    background-color: #1e293b; color: #38bdf8; 
+    padding: 5px 12px; border-radius: 20px; 
+    font-size: 12px; font-weight: 600; border: 1px solid #334155; 
+}
 
-                        {% csrf_token %}
+.main-card {
+    background-color: #111827;
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid #1f2937;
+    margin-bottom: 20px;
+}
 
-                        <table style="margin: 0 auto; width: 100%; max-width: 500px;">
-                            <tr>
-                                <td
-                                    style="padding: 10px; text-align: right; width: 40%; font-weight: bold; color: #333;">
-                                    Enter Essay (Text):</td>
-                                <td style="padding: 10px; text-align: left;">
-                                    <textarea name="final_text" rows="8"
-                                        style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; background: #fff; color: #333;"></textarea>
-                                </td>
-                            </tr>
+.section-title { font-size: 20px; font-weight: 700; color: #f8fafc; margin-bottom: 5px; }
+.section-subtitle { font-size: 14px; color: #9ca3af; margin-bottom: 20px; }
 
-                            <tr>
-                                <td style="padding: 10px; text-align: right; font-weight: bold; color: #333;">OR
-                                    Upload Essay Image:</td>
-                                <td style="padding: 10px; text-align: left;">
-                                    <input type="file" name="essay_image" accept="image/*"
-                                        style="padding: 5px 0; color:#333;">
-                                </td>
-                            </tr>
+.tabs {
+    display: flex;
+    background-color: #0f172a;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid #1e293b;
+}
 
-                            <tr>
-                                <td></td>
-                                <td style="padding: 20px 10px; text-align: left;">
-                                    <button type="submit"
-                                        style="background-color: #47b2e4; color: #121212; padding: 10px 30px; border: none; border-radius: 50px; cursor: pointer; font-weight: bold;">
-                                        Generate Score
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
+.tab {
+    flex: 1; text-align: center; padding: 12px;
+    cursor: pointer; font-weight: 600; color: #94a3b8;
+    transition: all 0.3s;
+}
 
-                    </form>
+.tab.active { background-color: #3b82f6; color: white; }
 
-                </center>
+.custom-textarea {
+    background-color: #0f172a;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    color: #cbd5e1;
+    padding: 20px;
+    width: 100%;
+    min-height: 200px;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.custom-textarea:focus { outline: none; border-color: #3b82f6; }
+
+.file-upload {
+    background-color: #0f172a; border: 1px dashed #3b82f6;
+    border-radius: 8px; padding: 40px; text-align: center;
+    color: #94a3b8; margin-bottom: 20px; display: none;
+}
+
+.gen-btn {
+    background-color: #3b82f6; color: white;
+    font-weight: 700; letter-spacing: 1px;
+    padding: 15px; border-radius: 8px; width: 100%;
+    border: none; cursor: pointer; transition: 0.3s;
+}
+
+.gen-btn:hover { background-color: #2563eb; }
+
+/* Result Card */
+.result-card {
+    background-color: #111827; border-radius: 12px;
+    border: 1px solid #1e293b; padding: 30px;
+    text-align: center; margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+}
+
+.score-circle {
+    width: 120px; height: 120px; border-radius: 50%;
+    background-color: #3b82f6; display: flex;
+    justify-content: center; align-items: center;
+    margin: 20px auto; color: white; font-size: 36px;
+    font-weight: 700; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+}
+
+.score-base { font-size: 16px; opacity: 0.8; }
+.score-label { color: #60a5fa; font-weight: 600; font-size: 18px; }
+
+/* Extracted text */
+.extracted-box {
+    background-color: #111827; border-radius: 12px;
+    border: 1px solid #1e293b; padding: 20px;
+    color: #94a3b8; font-size: 13px; line-height: 1.6;
+}
+
+</style>
+
+<div class="dashboard-container">
+    
+    <div class="header-banner">
+        <div>
+            <p class="welcome-text">👋 Welcome back,</p>
+            <h2 class="user-name">{{ request.session.loggeduser|default:'User' }}</h2>
+            <div class="badges">
+                <span class="badge">🤖 AI Powered</span>
+                <span class="badge">⚡ Instant Score</span>
+                <span class="badge">🧠 LSTM Model</span>
             </div>
         </div>
+        <div style="width: 50px; height: 50px; border-radius: 50%; background-color:#1e3a8a; display:flex; justify-content:center; align-items:center; color:white; font-size:20px; font-weight:bold;">
+            {{ request.session.loggeduser|default:'U'|slice:":1"|upper }}
+        </div>
     </div>
+
+    <div class="main-card">
+        <h3 class="section-title">✍️ Essay Evaluation</h3>
+        <p class="section-subtitle">Type or upload your essay to get AI score</p>
+
+        <div class="tabs">
+            <div class="tab active" id="tab-text" onclick="switchTab('text')">📄 Text</div>
+            <div class="tab" id="tab-image" onclick="switchTab('image')">🖼️ Image</div>
+        </div>
+
+        <form action="{% url 'prediction' %}" method="POST" enctype="multipart/form-data" id="eval-form">
+            {% csrf_token %}
+            
+            <textarea name="final_text" id="text-input" class="custom-textarea" placeholder="Type your essay here..."></textarea>
+            
+            <div id="image-input" class="file-upload">
+                <p>Click here to attach an image for OCR evaluation</p>
+                <input type="file" name="essay_image" accept="image/*" style="margin-top: 15px;">
+            </div>
+
+            <button type="submit" class="gen-btn">⚡ GENERATE SCORE</button>
+        </form>
+    </div>
+
+    {% if score %}
+    <div class="result-card">
+        <p style="color:#94a3b8; font-weight:700; letter-spacing:1px; margin:0; font-size:12px;">🎯 AI SCORING RESULT</p>
+        
+        <!-- Extracted numbers logic from "7 (Raw...)" -->
+        {% with score|slice:":1" as sVal %}
+        <div class="score-circle">
+            {{ sVal }}<span class="score-base">/10</span>
+        </div>
+        {% endwith %}
+
+        <div class="score-label">
+            {% if "10" in score or "9" in score or "8" in score %}Excellent{% elif "7" in score or "6" in score %}Good{% else %}Needs Improvement{% endif %}
+        </div>
+        <br>
+        <p style="color:#475569; font-size:12px;">Predicted by LSTM Neural Network</p>
+    </div>
+    {% endif %}
+
+    {% if extracted_text %}
+    <div class="extracted-box">
+        <strong style="color:white; display:block; margin-bottom:10px;">📋 Extracted OCR Text:</strong>
+        {{ extracted_text }}
+    </div>
+    {% endif %}
+
 </div>
 
+<script>
+    function switchTab(type) {
+        if(type === 'text') {
+            document.getElementById('tab-text').classList.add('active');
+            document.getElementById('tab-image').classList.remove('active');
+            document.getElementById('text-input').style.display = 'block';
+            document.getElementById('image-input').style.display = 'none';
+        } else {
+            document.getElementById('tab-image').classList.add('active');
+            document.getElementById('tab-text').classList.remove('active');
+            document.getElementById('image-input').style.display = 'block';
+            document.getElementById('text-input').style.display = 'none';
+        }
+    }
+</script>
 {% endblock %}

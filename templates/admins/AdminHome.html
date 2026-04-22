@@ -1,41 +1,150 @@
-{% extends 'admins/adminbase.html'%}
-{%block contents%}
+{% extends 'admins/adminbase.html' %}
+{% load static %}
+{% block contents %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
- <section id="intro">
+body {
+    background-color: #0b0f19 !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #f8fafc;
+}
 
-    <div class="intro-text">
-     <div class="container" style="margin-top:-200px;">
+.admin-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 30px;
+}
 
-      <p><h4 align="center" style="color:orange;">Welcome to Admin Homepage...</h4></p>
-      <!--<a href="#about" class="btn-get-started scrollto">Get Started</a>
+.admin-header {
+    background-color: #111827;
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 20px;
+    border: 1px solid #1f2937;
+}
+
+.admin-title { margin: 0; font-size: 28px; font-weight: 700; color: #f8fafc; }
+.admin-subtitle { margin: 5px 0 0 0; font-size: 14px; color: #9ca3af; }
+
+.action-card {
+    background-color: #111827;
+    border-radius: 12px;
+    padding: 20px 25px;
+    margin-bottom: 15px;
+    border: 1px solid #1f2937;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+    text-decoration: none;
+    border-left: 4px solid #3b82f6;
+}
+
+.action-card:hover {
+    background-color: #1e293b;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+.action-card.green { border-left-color: #10b981; }
+.action-card.yellow { border-left-color: #f59e0b; }
+
+.action-icon {
+    width: 45px;
+    height: 45px;
+    background-color: #1e293b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+.action-content h4 {
+    margin: 0;
+    color: #f8fafc;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.action-content p {
+    margin: 3px 0 0 0;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.arrow {
+    margin-left: auto;
+    color: #64748b;
+    font-size: 18px;
+}
+
+.logout-btn {
+    background-color: #f43f5e;
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 15px;
+    border-radius: 10px;
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+    text-decoration: none;
+    margin-top: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+    background-color: #e11d48;
+    text-decoration: none;
+    color: white;
+}
+</style>
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="admin-title">Admin Dashboard</h1>
+        <p class="admin-subtitle">System Controller</p>
     </div>
-  </section>
 
-              <div class="col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="300ms" data-wow-delay="200ms">
-                    <div class="media service-box">
-                        <div class="pull-left">
-                            <i class="fa fa-database"></i>
-                        </div>
-                        <div class="media-body">
-                            <h4 class="media-heading">Model Fitting</h4>
-                            <pre>
-                                    <code class="python">
-vectorization = TfidfVectorizer()
-xv_train = vectorization.fit_transform(x_train)
-xv_test = vectorization.transform(x_test)
-svm_model = SVC(kernel='linear')
-#Fitting training set to the model
-svm_model.fit(xv_train,y_train)
-#Predicting the test set results based on the model
-svm_y_pred = svm_model.predict(xv_test)
-#Calculate the accuracy score of this model
-score = accuracy_score(y_test,svm_y_pred)
-                                    </code>
-                                </pre>
-                        </div>
-                    </div>
-                </div><!--/.col-md-4-->
+    <!-- Replace # with actual URLs later if needed, but matched UI for now -->
+    <a href="{% url 'RegisterUsersView' %}" class="action-card">
+        <div class="action-icon" style="color: #60a5fa;">👥</div>
+        <div class="action-content">
+            <h4>View Registered Users</h4>
+            <p>Manage and activate accounts</p>
+        </div>
+        <span class="arrow">&rarr;</span>
+    </a>
 
-              </div>
-            </div><!--/.row-->
-{%endblock%}
+    <!-- A placeholder for Model Performance -->
+    <a href="javascript:void(0)" class="action-card green">
+        <div class="action-icon" style="color: #34d399;">📊</div>
+        <div class="action-content">
+            <h4>Model Performance</h4>
+            <p>Check training metrics</p>
+        </div>
+        <span class="arrow">&rarr;</span>
+    </a>
+
+    <!-- A placeholder for Dataset Management -->
+    <a href="javascript:void(0)" class="action-card yellow">
+        <div class="action-icon" style="color: #fbbf24;">📁</div>
+        <div class="action-content">
+            <h4>Dataset Management</h4>
+            <p>View repository data</p>
+        </div>
+        <span class="arrow">&rarr;</span>
+    </a>
+
+    <a href="{% url 'index' %}" class="logout-btn">LOGOUT SESSION</a>
+
+</div>
+
+{% endblock %}
