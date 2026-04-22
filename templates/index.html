@@ -3,101 +3,21 @@
 {% block headerclass %}{% endblock %}
 {% block contents %}
 
-<style>
-/* Index specific dark theme overrides to guarantee no white flash */
-body {
-    background-color: #0b0f19 !important;
-}
-
-#hero {
-    background-color: #0b0f19 !important;
-    padding-top: 100px;
-    padding-bottom: 60px;
-    border-bottom: 1px solid #1f2937;
-}
-
-#hero h1 {
-    color: #f8fafc !important;
-    font-weight: 800;
-    font-size: 48px;
-    letter-spacing: -1px;
-}
-
-#hero h2 {
-    color: #94a3b8 !important;
-    font-size: 18px;
-    line-height: 1.6;
-    margin-top: 20px;
-}
-
-.clients {
-    background-color: #111827 !important;
-    padding: 30px 0;
-    border-bottom: 1px solid #1f2937;
-}
-
-.clients h5 {
-    color: #38bdf8 !important;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.about {
-    background-color: #0b0f19 !important;
-    padding: 80px 0;
-}
-
-.section-title h2 {
-    color: #f8fafc !important;
-    font-weight: 700;
-}
-
-.about p {
-    color: #94a3b8 !important;
-    line-height: 1.8;
-}
-
-.about ul li {
-    color: #cbd5e1 !important;
-    margin-bottom: 15px;
-}
-
-.btn-learn-more {
-    background-color: #1e293b !important;
-    color: #38bdf8 !important;
-    padding: 12px 30px;
-    border-radius: 8px;
-    font-weight: 600;
-    border: 1px solid #334155;
-    transition: 0.3s;
-    display: inline-block;
-    margin-top: 20px;
-    text-decoration: none;
-}
-
-.btn-learn-more:hover {
-    background-color: #334155 !important;
-    color: white !important;
-}
-</style>
-
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="d-flex align-items-center" style="min-height: 80vh;">
 
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1">
+        <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
           <h1>Automated English Essay Scoring</h1>
           <h2>Enhance your writing skills with AI-powered instant feedback, accurate scoring, and comprehensive analysis in seconds.</h2>
           <div class="d-flex justify-content-center justify-content-lg-start mt-4">
             <a href="{% url 'UserRegister' %}" class="btn-get-started scrollto">Get Started</a>
-            <!-- Optional Demo Video -->
+            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video d-flex align-items-center" style="margin-left:20px; color:#fff"><i class="bi bi-play-circle" style="font-size:32px; margin-right:8px; color:#fff;"></i><span>Watch Demo</span></a>
           </div>
         </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img text-center">
-            <!-- Render a dark theme placeholder illustration using a generic web dev icon -->
-            <div style="font-size: 150px; text-align: center;">🤖</div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+          <img src="{% static 'assets/img/hero-img.png' %}" class="img-fluid animated" alt="">
         </div>
       </div>
     </div>
@@ -107,48 +27,57 @@ body {
   <main id="main">
 
     <!-- ======= Features Section ======= -->
-    <section id="clients" class="clients">
+    <section id="clients" class="clients section-bg">
       <div class="container">
-        <div class="row">
+
+        <div class="row" data-aos="zoom-in">
+
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <h5>AI Powered</h5>
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">AI Powered</h5>
           </div>
+
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <h5>Instant Feedback</h5>
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">Instant Feedback</h5>
           </div>
+
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <h5>Accurate Scoring</h5>
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">Accurate Scoring</h5>
           </div>
+
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <h5>Grammar Check</h5>
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">Grammar Check</h5>
           </div>
+
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <h5>Deep Learning</h5>
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">Deep Learning</h5>
           </div>
+
           <div class="col-lg-2 col-md-4 col-6 d-flex align-items-center justify-content-center">
-            <h5>NLP Models</h5>
+            <h5 style="color:#37517e; font-weight:bold; margin-bottom:0;">NLP Models</h5>
           </div>
+
         </div>
+
       </div>
-    </section>
+    </section><!-- End Cliens Section -->
     
     <!-- ======= About Us Section ======= -->
     <section id="about" class="about">
-      <div class="container">
+      <div class="container" data-aos="fade-up">
 
         <div class="section-title">
           <h2>About The Project</h2>
         </div>
 
-        <div class="row content mt-4">
+        <div class="row content">
           <div class="col-lg-6">
             <p>
               Our Automated English Essay Scoring system utilizes advanced Natural Language Processing and Deep Learning to evaluate essays accurately.
             </p>
-            <ul style="list-style: none; padding: 0;">
-              <li>✅ Rapid evaluation of essay structure and vocabulary.</li>
-              <li>✅ Deep grammatical and syntax analysis.</li>
-              <li>✅ Provides constructive feedback comparable to human graders.</li>
+            <ul>
+              <li><i class="ri-check-double-line"></i> Rapid evaluation of essay structure and vocabulary.</li>
+              <li><i class="ri-check-double-line"></i> Deep grammatical and syntax analysis.</li>
+              <li><i class="ri-check-double-line"></i> Provides constructive feedback comparable to human graders.</li>
             </ul>
           </div>
           <div class="col-lg-6 pt-4 pt-lg-0">
@@ -160,8 +89,8 @@ body {
         </div>
 
       </div>
-    </section>
+    </section><!-- End About Us Section -->
 
-  </main>
+  </main><!-- End #main -->
 
 {% endblock %}
